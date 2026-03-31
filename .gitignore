@@ -1,0 +1,11 @@
+node_modules
+package-lock.json
+.next
+dist
+coverage
+.DS_Store
+Thumbs.db
+*.tsbuildinfo
+apps/backend/tmp
+apps/backend/.env
+apps/frontend/.env.local
