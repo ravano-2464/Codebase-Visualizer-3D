@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import { IBM_Plex_Mono, Space_Grotesk } from "next/font/google";
+import { FloatingPageScrollbar } from "../components/floating-page-scrollbar";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -62,6 +63,7 @@ export default function RootLayout({
           strategy="beforeInteractive"
         />
         {children}
+        <FloatingPageScrollbar />
       </body>
     </html>
   );

@@ -273,21 +273,6 @@ export function CustomScrollShell({
     showTrack();
   }
 
-  function nudgeScroll(direction: "up" | "down") {
-    const viewport = viewportRef.current;
-
-    if (!viewport || !metricsRef.current.canScrollY) {
-      return;
-    }
-
-    viewport.scrollBy({
-      top: direction === "up" ? -viewport.clientHeight * 0.4 : viewport.clientHeight * 0.4,
-      behavior: "smooth"
-    });
-
-    showTrack();
-  }
-
   return (
     <div
       className={cn(
@@ -322,16 +307,6 @@ export function CustomScrollShell({
         {children}
       </div>
 
-      <button
-        aria-hidden={!metrics.canScrollY}
-        className="custom-scroll-arrow custom-scroll-arrow--up"
-        onClick={() => nudgeScroll("up")}
-        tabIndex={metrics.canScrollY ? 0 : -1}
-        type="button"
-      >
-        <span className="custom-scroll-arrow-icon custom-scroll-arrow-icon--up" />
-      </button>
-
       <div
         className="custom-scroll-track custom-scroll-track--y"
         aria-hidden={!metrics.canScrollY}
@@ -347,17 +322,6 @@ export function CustomScrollShell({
           }}
         />
       </div>
-
-      <button
-        aria-hidden={!metrics.canScrollY}
-        className="custom-scroll-arrow custom-scroll-arrow--down"
-        onClick={() => nudgeScroll("down")}
-        tabIndex={metrics.canScrollY ? 0 : -1}
-        type="button"
-      >
-        <span className="custom-scroll-arrow-icon custom-scroll-arrow-icon--down" />
-      </button>
     </div>
   );
 }
-
