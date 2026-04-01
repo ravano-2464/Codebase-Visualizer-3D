@@ -11,6 +11,29 @@ import { ProjectStats } from "./project-stats";
 import { UploadCard } from "./upload-card";
 
 const THEME_STORAGE_KEY = "cv3d-theme";
+const STACK_HIGHLIGHTS = [
+  {
+    label: "Mode",
+    title: "Repo intake",
+    detail: "Zip-only upload flow",
+    tag: "Upload",
+    glowVar: "var(--accent)"
+  },
+  {
+    label: "Backend",
+    title: "Express API",
+    detail: "PostgreSQL data layer",
+    tag: "Server",
+    glowVar: "var(--accent-strong)"
+  },
+  {
+    label: "Renderer",
+    title: "3D canvas",
+    detail: "React Three Fiber scene",
+    tag: "Viewport",
+    glowVar: "var(--accent-warm)"
+  }
+] as const;
 
 export type ThemeMode = "light" | "dark";
 
@@ -168,7 +191,7 @@ export function CodebaseVisualizerApp() {
     <main className="min-h-screen px-4 py-5 lg:px-6 lg:py-6">
       <div className="mx-auto max-w-[1680px]">
         <header className="panel panel-strong mb-6 rounded-[34px] p-6 lg:p-8">
-          <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(440px,0.95fr)] lg:items-start">
             <div>
               <p className="theme-kicker font-mono text-xs uppercase tracking-[0.32em]">
                 Codebase Visualizer 3D
@@ -198,25 +221,56 @@ export function CodebaseVisualizerApp() {
                 </div>
               </div>
 
-              <div className="grid gap-3 sm:grid-cols-3">
-                <div className="theme-surface-card rounded-[24px] p-4">
-                  <div className="theme-kicker font-mono text-xs uppercase tracking-[0.2em]">
-                    Mode
+              <div className="grid gap-3 md:grid-cols-3">
+                {STACK_HIGHLIGHTS.map((item) => (
+                  <div
+                    key={item.label}
+                    className="theme-surface-card relative overflow-hidden rounded-[24px] p-5"
+                  >
+                    <div
+                      className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full blur-3xl"
+                      style={{
+                        background: `radial-gradient(circle at center, color-mix(in srgb, ${item.glowVar} 26%, transparent), transparent 70%)`
+                      }}
+                    />
+                    <div
+                      className="pointer-events-none absolute inset-x-5 top-0 h-px"
+                      style={{ background: "var(--border-strong)" }}
+                    />
+
+                    <div className="relative flex min-h-[136px] flex-col">
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="theme-kicker font-mono text-[11px] uppercase tracking-[0.26em]">
+                          {item.label}
+                        </div>
+                        <div
+                          className="rounded-full px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.16em]"
+                          style={{
+                            border: "1px solid var(--border-strong)",
+                            background: "var(--surface-highlight)",
+                            color: "var(--text-soft)"
+                          }}
+                        >
+                          {item.tag}
+                        </div>
+                      </div>
+
+                      <div className="theme-heading mt-6 text-[1.12rem] font-semibold leading-[1.2]">
+                        {item.title}
+                      </div>
+                      <p className="theme-copy mt-2 text-sm leading-6">{item.detail}</p>
+
+                      <div className="mt-auto pt-4">
+                        <div
+                          className="h-[3px] w-14 rounded-full"
+                          style={{
+                            background: `linear-gradient(90deg, ${item.glowVar}, transparent)`
+                          }}
+                        />
+                      </div>
+                    </div>
                   </div>
-                  <div className="theme-heading mt-3 text-lg font-semibold">Repo zip upload</div>
-                </div>
-                <div className="theme-surface-card rounded-[24px] p-4">
-                  <div className="theme-kicker font-mono text-xs uppercase tracking-[0.2em]">
-                    Backend
-                  </div>
-                  <div className="theme-heading mt-3 text-lg font-semibold">Express + PostgreSQL</div>
-                </div>
-                <div className="theme-surface-card rounded-[24px] p-4">
-                  <div className="theme-kicker font-mono text-xs uppercase tracking-[0.2em]">
-                    Renderer
-                  </div>
-                  <div className="theme-heading mt-3 text-lg font-semibold">React Three Fiber</div>
-                </div>
+                ))}
               </div>
             </div>
           </div>

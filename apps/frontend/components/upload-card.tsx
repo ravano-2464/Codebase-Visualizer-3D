@@ -30,8 +30,8 @@ export function UploadCard({
           </p>
           <h2 className="theme-heading mt-2 text-2xl font-semibold">Upload repo jadi kota 3D</h2>
         </div>
-        <div className="theme-pill-accent rounded-full px-3 py-1 font-mono text-[11px] uppercase tracking-[0.22em]">
-          Zip only
+        <div className="theme-pill-accent shrink-0 whitespace-nowrap rounded-full px-3 py-1 font-mono text-[11px] uppercase tracking-[0.22em]">
+          Zip Only
         </div>
       </div>
 
