@@ -62,11 +62,7 @@ export const createLayout = (files: ParsedFile[]): LaidOutFile[] => {
   return sortedFiles.map((file, index) => {
     const baseWidth = clamp(3.6 + Math.min(file.functions.length, 12) * 0.22, 3.6, 7.4);
     const baseDepth = clamp(3.6 + Math.min(file.metrics.densityScore, 14) * 0.18, 3.6, 7.8);
-    const preferredHeight = clamp(
-      4.2 + file.loc * 0.08 + file.functions.length * 0.45,
-      4.2,
-      32
-    );
+    const preferredHeight = clamp(4.2 + file.loc * 0.08 + file.functions.length * 0.45, 4.2, 32);
     const { rooms, requiredHeight } = layoutRooms(
       file.functions,
       baseWidth,

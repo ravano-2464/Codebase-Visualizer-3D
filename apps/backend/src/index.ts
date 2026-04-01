@@ -31,16 +31,18 @@ const startServer = async (): Promise<void> => {
 
   app.use("/api/projects", projectsRouter);
 
-  app.use((
-    error: unknown,
-    _request: express.Request,
-    response: express.Response,
-    _next: express.NextFunction
-  ) => {
-    const message = error instanceof Error ? error.message : "Terjadi kesalahan internal.";
-    console.error(error);
-    response.status(500).json({ error: message });
-  });
+  app.use(
+    (
+      error: unknown,
+      _request: express.Request,
+      response: express.Response,
+      _next: express.NextFunction
+    ) => {
+      const message = error instanceof Error ? error.message : "Terjadi kesalahan internal.";
+      console.error(error);
+      response.status(500).json({ error: message });
+    }
+  );
 
   app.listen(config.port, () => {
     console.log(`Backend berjalan di http://localhost:${config.port}`);

@@ -9,12 +9,7 @@ interface ProjectListProps {
   onSelect: (projectId: number) => void;
 }
 
-export function ProjectList({
-  projects,
-  activeProjectId,
-  isLoading,
-  onSelect
-}: ProjectListProps) {
+export function ProjectList({ projects, activeProjectId, isLoading, onSelect }: ProjectListProps) {
   return (
     <section className="panel rounded-[28px] p-5">
       <div className="mb-4 flex items-center justify-between">
@@ -47,9 +42,7 @@ export function ProjectList({
             <button
               key={project.id}
               className={`theme-surface-card theme-surface-card--hover w-full rounded-[22px] px-4 py-4 text-left ${
-                isActive
-                  ? "theme-project-card--active"
-                  : ""
+                isActive ? "theme-project-card--active" : ""
               }`}
               onClick={() => onSelect(project.id)}
               type="button"

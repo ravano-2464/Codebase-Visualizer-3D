@@ -24,6 +24,8 @@ Codebase Visualizer 3D is an MVP designed to help developers understand a codeba
 ![Docker Compose](https://img.shields.io/badge/Docker_Compose-Database_Setup-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![npm Workspaces](https://img.shields.io/badge/npm_Workspaces-Monorepo-CB3837?style=for-the-badge&logo=npm&logoColor=white)
 ![Concurrently](https://img.shields.io/badge/Concurrently-Parallel_Dev-9333EA?style=for-the-badge)
+![ESLint](https://img.shields.io/badge/ESLint-9.39.4-4B32C3?style=for-the-badge&logo=eslint&logoColor=white)
+![Prettier](https://img.shields.io/badge/Prettier-3.8.1-F7B93E?style=for-the-badge&logo=prettier&logoColor=111111)
 
 ## ✨ Why This Project Is Interesting
 
@@ -144,28 +146,63 @@ Even without detected functions, these files can still appear as shell buildings
 ## 🗂️ Project Structure
 
 ```text
-.
-├─ apps/
-│  ├─ backend/
-│  │  ├─ src/
-│  │  │  ├─ routes/
-│  │  │  └─ services/
-│  │  ├─ .env
-│  │  ├─ .env.example
-│  │  ├─ package.json
-│  │  └─ tsconfig.json
-│  └─ frontend/
-│     ├─ app/
-│     ├─ components/
-│     ├─ lib/
-│     ├─ types/
-│     ├─ .env.example
-│     └─ package.json
-├─ db/
-│  └─ schema.sql
-├─ docker-compose.yml
-├─ package.json
-└─ README.md
+📦 Codebase Visualizer 3D
+├── 📁 apps
+│   ├── 📁 backend
+│   │   ├── 📁 src
+│   │   │   ├── 📁 routes
+│   │   │   │   └── 📄 projects.ts
+│   │   │   ├── 📁 services
+│   │   │   │   ├── 📄 file-system.ts
+│   │   │   │   ├── 📄 layout-service.ts
+│   │   │   │   └── 📄 parser-service.ts
+│   │   │   ├── 📄 config.ts
+│   │   │   ├── 📄 db.ts
+│   │   │   ├── 📄 index.ts
+│   │   │   └── 📄 types.ts
+│   │   ├── 📄 eslint.config.mjs
+│   │   ├── ⚙️ package.json
+│   │   └── ⚙️ tsconfig.json
+│   └── 📁 frontend
+│       ├── 📁 app
+│       │   ├── 🎨 globals.css
+│       │   ├── 📄 layout.tsx
+│       │   └── 📄 page.tsx
+│       ├── 📁 components
+│       │   ├── 📄 codebase-visualizer-app.tsx
+│       │   ├── 📄 custom-scroll-shell.tsx
+│       │   ├── 📄 floating-page-scrollbar.tsx
+│       │   ├── 📄 project-details.tsx
+│       │   ├── 📄 project-list.tsx
+│       │   ├── 📄 project-stats.tsx
+│       │   ├── 📄 upload-card.tsx
+│       │   └── 📄 world-canvas.tsx
+│       ├── 📁 lib
+│       │   ├── 📄 api.ts
+│       │   └── 📄 utils.ts
+│       ├── 📁 public
+│       │   └── 📁 images
+│       │       └── 🖼️ Icon.webp
+│       ├── 📁 types
+│       │   └── 📄 project.ts
+│       ├── ⚙️ .env.example
+│       ├── 📄 eslint.config.mjs
+│       ├── 📄 next-env.d.ts
+│       ├── 📄 next.config.ts
+│       ├── ⚙️ package.json
+│       ├── 📄 postcss.config.mjs
+│       └── ⚙️ tsconfig.json
+├── 📁 db
+│   └── 📄 schema.sql
+├── 📁 public
+│   └── 📁 images
+│       └── 🖼️ Icon.webp
+├── ⚙️ .gitignore
+├── ⚙️ .prettierignore
+├── ⚙️ .prettierrc.json
+├── 📝 README.md
+├── ⚙️ docker-compose.yml
+└── ⚙️ package.json
 ```
 
 ## 📁 Important Directories
@@ -233,18 +270,18 @@ npm run dev
 
 ### 🛠️ Backend `.env`
 
-| Variable | Default | Description |
-| --- | --- | --- |
-| `PORT` | `4000` | Express server port |
-| `DATABASE_URL` | `postgresql://postgres:FerariF12@localhost:5432/codebase_visualizer` | PostgreSQL connection string |
-| `FRONTEND_URL` | `http://localhost:3000` | Allowed frontend origin for CORS |
-| `UPLOAD_DIR` | `./tmp/uploads` | Temporary upload directory |
-| `EXTRACT_DIR` | `./tmp/extracted` | Temporary extraction directory |
+| Variable       | Default                                                              | Description                      |
+| -------------- | -------------------------------------------------------------------- | -------------------------------- |
+| `PORT`         | `4000`                                                               | Express server port              |
+| `DATABASE_URL` | `postgresql://postgres:FerariF12@localhost:5432/codebase_visualizer` | PostgreSQL connection string     |
+| `FRONTEND_URL` | `http://localhost:3000`                                              | Allowed frontend origin for CORS |
+| `UPLOAD_DIR`   | `./tmp/uploads`                                                      | Temporary upload directory       |
+| `EXTRACT_DIR`  | `./tmp/extracted`                                                    | Temporary extraction directory   |
 
 ### 🖥️ Frontend `.env.local`
 
-| Variable | Default | Description |
-| --- | --- | --- |
+| Variable              | Default                 | Description          |
+| --------------------- | ----------------------- | -------------------- |
 | `NEXT_PUBLIC_API_URL` | `http://localhost:4000` | Backend API base URL |
 
 ## 🗃️ Database Model
@@ -299,6 +336,9 @@ Expected fields:
 
 ```bash
 npm run dev
+npm run lint
+npm run format
+npm run format:check
 npm run build
 npm run typecheck
 ```
@@ -307,6 +347,7 @@ npm run typecheck
 
 ```bash
 npm run dev -w apps/frontend
+npm run lint -w apps/frontend
 npm run build -w apps/frontend
 npm run typecheck -w apps/frontend
 ```
@@ -315,6 +356,7 @@ npm run typecheck -w apps/frontend
 
 ```bash
 npm run dev -w apps/backend
+npm run lint -w apps/backend
 npm run build -w apps/backend
 npm run typecheck -w apps/backend
 ```

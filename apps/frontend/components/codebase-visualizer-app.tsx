@@ -37,17 +37,14 @@ const STACK_HIGHLIGHTS = [
 
 export type ThemeMode = "light" | "dark";
 
-const WorldCanvas = dynamic(
-  () => import("./world-canvas").then((module) => module.WorldCanvas),
-  {
-    loading: () => (
-      <div className="theme-soft flex h-full min-h-[620px] items-center justify-center text-sm">
-        Menyiapkan viewport 3D...
-      </div>
-    ),
-    ssr: false
-  }
-);
+const WorldCanvas = dynamic(() => import("./world-canvas").then((module) => module.WorldCanvas), {
+  loading: () => (
+    <div className="theme-soft flex h-full min-h-[620px] items-center justify-center text-sm">
+      Menyiapkan viewport 3D...
+    </div>
+  ),
+  ssr: false
+});
 
 export function CodebaseVisualizerApp() {
   const [projects, setProjects] = useState<ProjectSummary[]>([]);
@@ -211,7 +208,10 @@ export function CodebaseVisualizerApp() {
                   {(["light", "dark"] as ThemeMode[]).map((mode) => (
                     <button
                       key={mode}
-                      className={cn("theme-toggle-option font-mono text-xs uppercase tracking-[0.18em]", resolvedTheme === mode && "is-active")}
+                      className={cn(
+                        "theme-toggle-option font-mono text-xs uppercase tracking-[0.18em]",
+                        resolvedTheme === mode && "is-active"
+                      )}
                       onClick={() => setTheme(mode)}
                       type="button"
                     >

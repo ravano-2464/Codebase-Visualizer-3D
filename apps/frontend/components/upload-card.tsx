@@ -25,9 +25,7 @@ export function UploadCard({
     <section className="panel panel-strong rounded-[28px] p-5">
       <div className="mb-4 flex items-start justify-between gap-4">
         <div>
-          <p className="theme-kicker font-mono text-xs uppercase tracking-[0.28em]">
-            Repo Intake
-          </p>
+          <p className="theme-kicker font-mono text-xs uppercase tracking-[0.28em]">Repo Intake</p>
           <h2 className="theme-heading mt-2 text-2xl font-semibold">Upload repo jadi kota 3D</h2>
         </div>
         <div className="theme-pill-accent shrink-0 whitespace-nowrap rounded-full px-3 py-1 font-mono text-[11px] uppercase tracking-[0.22em]">
@@ -65,9 +63,7 @@ export function UploadCard({
         </label>
 
         {errorMessage ? (
-          <div className="theme-error rounded-2xl px-4 py-3 text-sm">
-            {errorMessage}
-          </div>
+          <div className="theme-error rounded-2xl px-4 py-3 text-sm">{errorMessage}</div>
         ) : null}
 
         <button

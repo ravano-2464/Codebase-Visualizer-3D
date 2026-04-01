@@ -42,4 +42,3 @@ export const uploadProject = async (file: File, label?: string): Promise<Project
   const payload = await parseJson<{ project: ProjectSummary }>(response);
   return payload.project;
 };
-

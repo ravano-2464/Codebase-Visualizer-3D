@@ -2,6 +2,14 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { parse } from "@babel/parser";
 import traverse from "@babel/traverse";
+import type { NodePath } from "@babel/traverse";
+import type {
+  ClassMethod,
+  ClassPrivateMethod,
+  Node,
+  ObjectMethod,
+  ObjectProperty
+} from "@babel/types";
 import { collectCandidateFiles, resolveRepositoryRoot } from "./file-system";
 import { ParsedFile, ParsedProject, ParsedRoom } from "../types";
 
@@ -113,7 +121,9 @@ const buildRoom = (
   };
 };
 
-const getNodeName = (node: any): string => {
+type NamedNode = ClassMethod | ClassPrivateMethod | ObjectMethod | ObjectProperty;
+
+const getNodeName = (node: NamedNode): string => {
   const key = node.key;
 
   if (!key) {
@@ -128,15 +138,23 @@ const getNodeName = (node: any): string => {
     return key.value ?? "anonymous";
   }
 
+  if (key.type === "PrivateName") {
+    return key.id.name ?? "anonymous";
+  }
+
   return "anonymous";
 };
 
-const getClassName = (pathLike: any): string | undefined => {
+const getClassName = (pathLike: NodePath<Node>): string | undefined => {
   const parentClass = pathLike.findParent(
-    (candidate: any) => candidate.isClassDeclaration() || candidate.isClassExpression()
+    (candidate) => candidate.isClassDeclaration() || candidate.isClassExpression()
   );
 
-  return parentClass?.node.id?.name;
+  if (parentClass?.isClassDeclaration() || parentClass?.isClassExpression()) {
+    return parentClass.node.id?.name;
+  }
+
+  return undefined;
 };
 
 const extractRegexFunctions = (content: string, language: string): ParsedRoom[] => {
@@ -189,7 +207,7 @@ const extractRegexFunctions = (content: string, language: string): ParsedRoom[] 
 
     if (language === "java" || language === "csharp" || language === "cpp" || language === "c") {
       const match = trimmed.match(
-        /^(?:(?:public|private|protected|internal|static|final|virtual|override|async|sealed|abstract|inline)\s+)*[\w<>\[\],:\s*&?]+\s+([A-Za-z_][\w]*)\s*\([^;]*\)\s*\{?$/
+        /^(?:(?:public|private|protected|internal|static|final|virtual|override|async|sealed|abstract|inline)\s+)*[\w<>,:\s*&?[\]]+\s+([A-Za-z_][\w]*)\s*\([^;]*\)\s*\{?$/
       );
       pushMatch(match?.[1], "method");
       return;
@@ -208,7 +226,13 @@ const extractRegexFunctions = (content: string, language: string): ParsedRoom[] 
 
   return matches.map((match, index) => {
     const nextLine = matches[index + 1]?.line ?? lines.length;
-    return buildRoom(content, match.name, match.kind, match.line, Math.max(match.line, nextLine - 1));
+    return buildRoom(
+      content,
+      match.name,
+      match.kind,
+      match.line,
+      Math.max(match.line, nextLine - 1)
+    );
   });
 };
 
@@ -401,7 +425,9 @@ export const parseRepository = async (
   const repositoryRoot = await resolveRepositoryRoot(extractedRoot);
   const candidateFiles = await collectCandidateFiles(repositoryRoot);
   const files = (
-    await Promise.all(candidateFiles.map((filePath) => parseRepositoryFile(filePath, repositoryRoot)))
+    await Promise.all(
+      candidateFiles.map((filePath) => parseRepositoryFile(filePath, repositoryRoot))
+    )
   ).filter((file): file is ParsedFile => Boolean(file));
 
   const sortedFiles = files.sort((left, right) => {

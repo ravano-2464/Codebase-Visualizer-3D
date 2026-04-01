@@ -108,7 +108,9 @@ function BuildingMesh({
           setIsHovered(true);
         }}
       >
-        <boxGeometry args={[building.buildingWidth, building.buildingHeight, building.buildingDepth]} />
+        <boxGeometry
+          args={[building.buildingWidth, building.buildingHeight, building.buildingDepth]}
+        />
         <meshStandardMaterial
           color={color}
           metalness={0.08}

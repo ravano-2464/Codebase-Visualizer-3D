@@ -265,8 +265,7 @@ export function CustomScrollShell({
     );
 
     viewport.scrollTo({
-      top:
-        maxThumbOffset === 0 ? 0 : (centeredThumbOffset / maxThumbOffset) * maxScrollTop,
+      top: maxThumbOffset === 0 ? 0 : (centeredThumbOffset / maxThumbOffset) * maxScrollTop,
       behavior: "smooth"
     });
 
@@ -296,11 +295,7 @@ export function CustomScrollShell({
       }}
     >
       <div
-        className={cn(
-          "custom-scroll-target",
-          page && "page-scroll-area",
-          viewportClassName
-        )}
+        className={cn("custom-scroll-target", page && "page-scroll-area", viewportClassName)}
         onScroll={handleViewportScroll}
         ref={viewportRef}
       >

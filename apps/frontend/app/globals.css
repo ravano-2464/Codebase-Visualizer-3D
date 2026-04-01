@@ -295,9 +295,7 @@ body::before {
 .panel {
   background: var(--panel);
   border: 1px solid var(--border);
-  box-shadow:
-    var(--panel-shadow),
-    var(--panel-inset);
+  box-shadow: var(--panel-shadow), var(--panel-inset);
   backdrop-filter: blur(16px);
 }
 
@@ -494,7 +492,11 @@ body::before {
 }
 
 .theme-scene-halo {
-  background: radial-gradient(circle at top, color-mix(in srgb, var(--accent) 24%, transparent), transparent 58%);
+  background: radial-gradient(
+    circle at top,
+    color-mix(in srgb, var(--accent) 24%, transparent),
+    transparent 58%
+  );
 }
 
 .theme-world-empty {

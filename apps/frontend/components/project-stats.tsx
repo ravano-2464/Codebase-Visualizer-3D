@@ -15,9 +15,7 @@ export function ProjectStats({ world, isLoading }: ProjectStatsProps) {
       <p className="theme-kicker font-mono text-xs uppercase tracking-[0.24em]">Telemetry</p>
       <h2 className="theme-heading mt-2 text-xl font-semibold">Metrik dunia aktif</h2>
 
-      {isLoading ? (
-        <p className="theme-copy mt-4 text-sm">Menyusun ulang lanskap kode...</p>
-      ) : null}
+      {isLoading ? <p className="theme-copy mt-4 text-sm">Menyusun ulang lanskap kode...</p> : null}
 
       {!world && !isLoading ? (
         <p className="theme-copy mt-4 text-sm">
@@ -34,15 +32,11 @@ export function ProjectStats({ world, isLoading }: ProjectStatsProps) {
             <div className="theme-heading mt-3 text-3xl font-semibold">{stats.totalFiles}</div>
           </div>
           <div className="theme-surface-card rounded-2xl p-4">
-            <div className="theme-kicker font-mono text-xs uppercase tracking-[0.2em]">
-              Rooms
-            </div>
+            <div className="theme-kicker font-mono text-xs uppercase tracking-[0.2em]">Rooms</div>
             <div className="theme-heading mt-3 text-3xl font-semibold">{stats.totalFunctions}</div>
           </div>
           <div className="theme-surface-card rounded-2xl p-4">
-            <div className="theme-kicker font-mono text-xs uppercase tracking-[0.2em]">
-              LOC
-            </div>
+            <div className="theme-kicker font-mono text-xs uppercase tracking-[0.2em]">LOC</div>
             <div className="theme-heading mt-3 text-3xl font-semibold">{stats.totalLoc}</div>
           </div>
         </div>

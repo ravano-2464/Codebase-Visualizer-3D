@@ -22,7 +22,20 @@ const buildProjectSlug = (projectName: string): string => {
   return `${base}-${Date.now().toString(36)}`;
 };
 
-const mapProjectRow = (row: Record<string, any>) => ({
+interface ProjectRow {
+  id: number;
+  name: string;
+  slug: string;
+  sourceFilename: string;
+  status: string;
+  totalFiles: number;
+  totalFunctions: number;
+  totalLoc: number;
+  createdAt: string | Date;
+  updatedAt: string | Date;
+}
+
+const mapProjectRow = (row: ProjectRow): ProjectRow => ({
   id: row.id,
   name: row.name,
   slug: row.slug,
@@ -179,8 +192,7 @@ projectsRouter.post("/upload", upload.single("repo"), async (request, response, 
 
   await ensureTempDirectories();
 
-  const requestedLabel =
-    typeof request.body.label === "string" ? request.body.label.trim() : "";
+  const requestedLabel = typeof request.body.label === "string" ? request.body.label.trim() : "";
   const extractTarget = path.join(
     config.extractDir,
     `${Date.now().toString(36)}-${path.parse(request.file.originalname).name}`

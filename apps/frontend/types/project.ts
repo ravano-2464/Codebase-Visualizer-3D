@@ -58,4 +58,3 @@ export interface ProjectWorld {
   };
   buildings: BuildingNode[];
 }
-

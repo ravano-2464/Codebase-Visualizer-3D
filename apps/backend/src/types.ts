@@ -52,4 +52,3 @@ export interface LaidOutFile extends Omit<ParsedFile, "functions"> {
   positionZ: number;
   rooms: LaidOutRoom[];
 }
-

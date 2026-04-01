@@ -134,4 +134,3 @@ export const collectCandidateFiles = async (rootDirectory: string): Promise<stri
 
   return files;
 };
-

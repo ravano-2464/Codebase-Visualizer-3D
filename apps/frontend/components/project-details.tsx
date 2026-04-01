@@ -22,8 +22,8 @@ export function ProjectDetails({ world, selectedBuilding }: ProjectDetailsProps)
 
       {world && !selectedBuilding ? (
         <div className="theme-dashed-panel theme-copy mt-5 rounded-[22px] px-4 py-5 text-sm">
-          Dunia <span className="theme-heading">{world.project.name}</span> siap dijelajahi. Pilih satu
-          building untuk membuka room list-nya.
+          Dunia <span className="theme-heading">{world.project.name}</span> siap dijelajahi. Pilih
+          satu building untuk membuka room list-nya.
         </div>
       ) : null}
 
@@ -33,12 +33,8 @@ export function ProjectDetails({ world, selectedBuilding }: ProjectDetailsProps)
             <div className="theme-heading text-lg font-semibold">{selectedBuilding.name}</div>
             <div className="theme-copy mt-1 text-sm">{selectedBuilding.path}</div>
             <div className="mt-4 flex flex-wrap gap-2 text-xs">
-              <span className="theme-tag rounded-full px-3 py-1">
-                {selectedBuilding.language}
-              </span>
-              <span className="theme-tag rounded-full px-3 py-1">
-                {selectedBuilding.loc} LOC
-              </span>
+              <span className="theme-tag rounded-full px-3 py-1">{selectedBuilding.language}</span>
+              <span className="theme-tag rounded-full px-3 py-1">{selectedBuilding.loc} LOC</span>
               <span className="theme-tag rounded-full px-3 py-1">
                 {selectedBuilding.rooms.length} room
               </span>
@@ -47,9 +43,7 @@ export function ProjectDetails({ world, selectedBuilding }: ProjectDetailsProps)
 
           <div className="theme-surface-card rounded-[22px] p-4">
             <div className="mb-3 flex items-center justify-between">
-              <div className="theme-kicker font-mono text-xs uppercase tracking-[0.2em]">
-                Rooms
-              </div>
+              <div className="theme-kicker font-mono text-xs uppercase tracking-[0.2em]">Rooms</div>
               <div className="theme-copy text-xs">
                 kepadatan {selectedBuilding.metrics.densityScore}
               </div>
@@ -63,10 +57,7 @@ export function ProjectDetails({ world, selectedBuilding }: ProjectDetailsProps)
               ) : null}
 
               {selectedBuilding.rooms.map((room) => (
-                <div
-                  key={room.id}
-                  className="theme-surface-card rounded-2xl px-3 py-3"
-                >
+                <div key={room.id} className="theme-surface-card rounded-2xl px-3 py-3">
                   <div className="flex items-center justify-between gap-3">
                     <div className="theme-heading text-sm font-semibold">{room.name}</div>
                     <div className="theme-kicker font-mono text-[11px] uppercase tracking-[0.18em]">

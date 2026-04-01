@@ -72,8 +72,7 @@ export function FloatingPageScrollbar() {
     );
     const maxThumbOffset = Math.max(trackHeight - nextThumbHeight, 0);
     const scrollTop = window.scrollY || root.scrollTop;
-    const nextThumbOffset =
-      maxThumbOffset === 0 ? 0 : (scrollTop / maxScrollTop) * maxThumbOffset;
+    const nextThumbOffset = maxThumbOffset === 0 ? 0 : (scrollTop / maxScrollTop) * maxThumbOffset;
 
     setNextMetrics({
       canScrollY: true,
